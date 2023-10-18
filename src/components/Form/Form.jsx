@@ -1,6 +1,8 @@
 import SectionForm from './Form.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { addName, addNumber } from '../../redux/actions';
+
+import { addName } from 'redux/createSliceName';
+import { addNumber } from 'redux/createSliceNumber';
 
 const Form = ({ createUser }) => {
   const name = useSelector(state => state.name);

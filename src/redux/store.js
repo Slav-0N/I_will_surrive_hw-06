@@ -1,15 +1,27 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-  contactReducer,
-  nameReducer,
-  numberReducer,
-  filterReducer,
-} from './reducer';
+import { addNameSlice } from './createSliceName';
+import { addNumberSlice } from './createSliceNumber';
+import { changeContactSlice } from './createSliceContacts';
+import { addFilterSlice } from './createSliceFilter';
+
+// import { contactReducer } from './reducer';
+
+// import {
+//   contactReducer,
+//   nameReducer,
+//   numberReducer,
+//   filterReducer,
+// } from './reducer';
+
 export const store = configureStore({
   reducer: {
-    contacts: contactReducer,
-    filter: filterReducer,
-    name: nameReducer,
-    number: numberReducer,
+    contacts: changeContactSlice.reducer,
+    // contacts: contactReducer,
+
+    filter: addFilterSlice.reducer,
+    name: addNameSlice.reducer,
+    number: addNumberSlice.reducer,
   },
 });
+
+console.log(addNameSlice);

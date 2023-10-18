@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact, deleteContact, setFilter } from '../../redux/actions';
+import { addContact, deleteContact } from 'redux/createSliceContacts';
+import { setFilter } from 'redux/createSliceFilter';
 
 const UserList = () => {
   const dispatch = useDispatch();
