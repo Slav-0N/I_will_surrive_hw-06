@@ -1,15 +1,19 @@
 import ContactItems from 'components/ContactItem/ContactItem';
 import FindName from 'components/Find/find';
 import Form from 'components/Form/Form';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
-const UserList = () => {
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('contacts')) ?? [];
-  });
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact, deleteContact, setFilter } from '../../redux/actions';
 
-  const [filter, setFilter] = useState('');
+const UserList = () => {
+  const dispatch = useDispatch();
+
+  const contacts = useSelector(state => state.contacts);
+
+  // const [filter, setFilter] = useState('');
+  const filter = useSelector(state => state.filter);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -28,16 +32,13 @@ const UserList = () => {
       number: number,
       id: nanoid(),
     };
-
-    setContacts(prevContacts => [...prevContacts, newUserElement]);
+    dispatch(addContact(newUserElement));
   };
 
-  const changeFilterValue = filterQuery => setFilter(filterQuery);
+  const changeFilterValue = filterQuery => dispatch(setFilter(filterQuery));
 
   const handleDelete = id => {
-    return setContacts(prevContacts => {
-      return prevContacts.filter(el => el.id !== id);
-    });
+    dispatch(deleteContact(id));
   };
 
   const getFilteredContacts = () => {

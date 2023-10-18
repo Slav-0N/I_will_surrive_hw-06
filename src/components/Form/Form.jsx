@@ -1,18 +1,22 @@
-import { useState } from 'react';
 import SectionForm from './Form.styled';
+import { useSelector, useDispatch } from 'react-redux';
+import { addName, addNumber } from '../../redux/actions';
 
 const Form = ({ createUser }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const name = useSelector(state => state.name);
+  const number = useSelector(state => state.number);
+
+  const dispatch = useDispatch();
+  // const [number, setNumber] = useState('');
 
   const handleChange = event => {
     const { name, value } = event.target;
     switch (name) {
       case 'name':
-        setName(value);
+        dispatch(addName(value));
         break;
       case 'number':
-        setNumber(value);
+        dispatch(addNumber(value));
         break;
       default:
         return;
@@ -23,8 +27,8 @@ const Form = ({ createUser }) => {
     event.preventDefault();
 
     createUser({ number, name });
-    setName('');
-    setNumber('');
+    dispatch(addName(''));
+    dispatch(addNumber(''));
   };
 
   return (
